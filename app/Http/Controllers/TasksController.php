@@ -33,4 +33,24 @@ class TasksController extends Controller
         return $task;
 
     }
+    public function show(Task $task){
+
+        return $task;
+
+    }
+    public function update(Request $request, Task $task){
+
+        // tanto a variavel request e a task tem a mesma informação, só que com o $task eu posso fazer o meu select com where da forma que foi feita no metodo show
+
+        $task->name = $request->input('name');
+
+        // aqui eu pego o valor que veio no request e jogo para a variavel name, usando o objeto da classe "task" que é o meu model
+
+        $task->save();
+
+        // aqui eu salvo ele
+
+        return $task;
+
+    }
 }
