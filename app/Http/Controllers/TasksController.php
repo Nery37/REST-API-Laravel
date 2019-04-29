@@ -20,6 +20,11 @@ class TasksController extends Controller
         // dentro da variavel $request eu vou ter todas as informações que vieram em forma de array
         //return $request->input('name');
 
+        $request->validate([
+            'name'=>'required|max:255',
+            'complete'=>'required'
+        ]);
+
         $task = Task::create([
             'name'=>$request->input('name'),
             'complete'=>$request->input('complete'),
@@ -42,6 +47,10 @@ class TasksController extends Controller
 
         // tanto a variavel request e a task tem a mesma informação, só que com o $task eu posso fazer o meu select com where da forma que foi feita no metodo show
 
+        $request->validate([
+            'name'=>'required|max:255'
+        ]);
+
         $task->name = $request->input('name');
 
         // aqui eu pego o valor que veio no request e jogo para a variavel name, usando o objeto da classe "task" que é o meu model
@@ -51,6 +60,14 @@ class TasksController extends Controller
         // aqui eu salvo ele
 
         return $task;
+
+    }
+
+    public function destroy(Task $task){
+
+        $task->delete();
+
+        return response()->json(['sucess'=>true]);
 
     }
 }
